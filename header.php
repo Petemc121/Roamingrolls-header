@@ -1,7 +1,5 @@
+<!DOCTYPE html>
 
-<?php 
-
-   ?>
 <html>
 
 <head>
@@ -13,45 +11,13 @@
 <?php
 wp_head();
 
-// // Get the HTML for the login form
-// $login_form = wp_login_form( [ 'echo' => false ] );
 
-// // Create an instance of DOMDocument 
-// $dom = new \DOMDocument();
-
-// // Populate $dom with our login form, making sure to handle UTF-8, otherwise
-// // problems will occur with UTF-8 characters.
-// $dom->loadHTML( mb_convert_encoding( $login_form, 'HTML-ENTITIES', 'UTF-8' ) );
-
-// // Create an instance of DOMXpath and get the <p class="login-remember"> node
-// $xpath = new \DOMXpath( $dom );
-// $remember = $xpath->query( '//p[@class="login-remember"]' );
-
-// // Iterate over the $remember node...
-// foreach ( $remember as $container ) {
-//     // Create the <span> element
-//     $checkbox_span = $dom->createElement( 'span' );
-
-//     // Create the class attribute
-//     $checkbox_span_attr = $dom->createAttribute( 'class' );
-//     // Set the value of the class attribute
-//     $checkbox_span_attr->value = 'custom-styled-checkbox';
-
-//     // Add class="custom-styled-checkbox" to the <span> element
-//     $checkbox_span->appendChild( $checkbox_span_attr );
-
-//     // Append the completed <span class="custom-styled-checkbox"></span> element
-//     // to <p class="login-remember"><label>
-//     //$container->childNodes[0]->appendChild( $checkbox_span ); // Fails on PHP < 5.6.3?
-//     $container->childNodes->item(0)->appendChild( $checkbox_span );
-// }
-
-// // Save the updated HTML to $login_form and output it.
-// $login_form = $dom->saveHTML();
-// echo $login_form;
 
   
 ?>
+
+
+
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
@@ -71,12 +37,12 @@ wp_head();
       <div>
       <div class="text-right">
 	
-	  <button id = "currencyButton" type="button" class="btn btn-outline-light " data-toggle="tooltip" >
+	  <!-- <button id = "currencyButton" type="button" class="btn btn-outline-light " data-toggle="tooltip" >
                 <span><h5><?php 
-$ip =  $_SERVER['REMOTE_ADDR'];
-echo $location = file_get_contents("http://api.hostip.info/country.php?ip=$ip");
+// $ip =  $_SERVER['REMOTE_ADDR'];
+// echo $location = file_get_contents("http://api.hostip.info/country.php?ip=$ip");
 ?></h5></span>
-      </button>  
+      </button>   -->
 	  <button id="loginbtn" data-placement="bottom" title="Sign in/sign up" class="btn btn-outline-light my-2 my-sm-0 bg-#1E3163" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
 	  <i id="tick" class="fas fa-check fa-xs"></i>
       <svg width="1.25em" height="1.25em" viewBox="0 0 16 16" class="bi bi-file-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -165,11 +131,13 @@ if ( ! is_user_logged_in() ) { // Display WordPress login form:
 				</div>
 		
 				<div class="mt-4">
+        <form method='post'>
 					<div class="d-flex justify-content-center links">
 						Don't have an account?
             <!-- <input id="clicked" name="clicked" value="clicked"></input> <button id ="signBtn" name="signUp" type="submit" > --->
             <a href="https://www.roamingrolls.com/sign-up/" class="ml-2">Sign Up</a>
 					</div>
+          </form>
 				</div>
 			</div>
 		</div>
