@@ -146,29 +146,80 @@ if ( ! is_user_logged_in() ) { // Display WordPress login form:
 <div class="wrapper">
     <!-- Sidebar -->
     <nav id="sidebar" style="right:0">
-      
+
+<div id="socialMediaCon">     
+
+<a href="https://www.facebook.com/RoamingRolls/?__xts__[0]=68.ARCWMIg9E_eD7KNw4cZJ6m47vrklgTUIC2fJCzZynHUw3q_2SEtChTgpnvwBf8bnaAT7luYAeO9Ybg269Tvl2eLwQO96aNtde92gv5Uo7LaPu1wzvsjIDl-MF1dtARnE_uEUsEbIG-tghNQvnCytSDi66k772nWSIjB1pq_mGSgIL3OVzPXDFBD9KH4-HfAIJEVyoeTGDmT69cLYVb4KgBMBnaa7xw3gjBOQ3VtlY78wWFDyc2BBS0VRIz97xx6pFEwTSkE2oDPNlKoA0ABEm4EfTasN0IWz1AQZa8EdxCCib3ugEoHgAwkZqsSrM-kpSb06GHNczcqSSdIIol_2v-DtB7Yn"><i id="facebookSideIcon" title="Facebook page" class="fab fa-facebook-square fa-2x topIcon"></i></a>
+
+<a href="https://www.instagram.com/roamingrolls/"><img id="instagramIcon" src="https://www.roamingrolls.com/wp-content/uploads/2021/04/instagram-logo-icon-png-13582-2.png">
+</a>
+
+
+</div>
+
+      <div id = "nav-contain">
+  <a href="https://www.roamingrolls.com/"><p class="nav-item">Home</p></a>
+  <a href="https://www.roamingrolls.com/about-roamingrolls/"><p class="nav-item">About RR</a>
+ <p class="nav-item">Account</p>
+  <a href="https://www.roamingrolls.com/Profiles/
+  <?php
+ $current_user = wp_get_current_user();
+  echo $current_user->user_login;
+  ?>
+  "><p class="nav-sub-item">Profile</a>
+  <a href="https://www.roamingrolls.com/"><p class="nav-sub-item">Settings</a>
+  <a href="https://www.roamingrolls.com/?s=&post_type=gyms"><p class="nav-item">Find a Gym</a>
+  <a
+  <?php
+   if ( ! is_user_logged_in() ){
+    echo "";} else {
+    echo "href ='https://www.roamingrolls.com/add%20your%20gym/'";}
+    ?>><p id ="addGymSlide" class="nav-item">Add a Gym</p></a>
+  <a href="https://www.roamingrolls.com/articles/"><p class="nav-item">Articles</a>
+      </div>
+
+<script>
+
+function logGymShow() { 
+  
+  addGymMsg.style.display = "block";
+}
+
+
+<?php 
+if ( ! is_user_logged_in() ) {
+  echo " addgym2 = document.getElementById('addGymSlide');
+                addgym2.addEventListener('click', function() { showpopup()
+                logGymShow()
+                setTimeout(function(){fade(addGymMsg)}, 1000);})";
+}
+
+?>
+
+
+  </script>
 
     <?php
 
-dynamic_sidebar('sidebar-1');
+// dynamic_sidebar('sidebar-1');
 
 ?>
 
    <?php
 
 
-wp_nav_menu(
+// wp_nav_menu(
 
-  array(
+//   array(
 
-    'menu' => 'primary',
-    'container' => '',
-    'theme_location' => 'primary',
-    'items-wrap' => '<ul id="" class="list-unstyled components">%3$s</ul>'
-  )
+//     'menu' => 'primary',
+//     'container' => '',
+//     'theme_location' => 'primary',
+//     'items-wrap' => '<ul id="" class="list-unstyled components">%3$s</ul>'
+//   )
 
 
-);
+// );
 
 ?>
 
