@@ -65,8 +65,9 @@ wp_head();
 
 <div id = "signpop"  class="container h-100">
 <div id = "block" class = "blocker"><div Id="logAddGymMsg" class="alert alert-danger" role="alert">
-  Please log in to add a gym.
+  Please log in/verify your account to add a gym.
 </div></div>
+
 		<div class="d-flex justify-content-center h-100">
 		<div class="user_card">
 				<div class="d-flex justify-content-center">
@@ -131,13 +132,25 @@ if ( ! is_user_logged_in() ) { // Display WordPress login form:
 				</div>
 		
 				<div class="mt-4">
-        <form method='post'>
+       
 					<div class="d-flex justify-content-center links">
 						Don't have an account?
             <!-- <input id="clicked" name="clicked" value="clicked"></input> <button id ="signBtn" name="signUp" type="submit" > --->
-            <a href="https://www.roamingrolls.com/sign-up/" class="ml-2">Sign Up</a>
+            <div id="signClick"><a href="https://www.roamingrolls.com/sign-up/" id="signClick" class="ml-2">Sign up</a></div>
 					</div>
-          </form>
+        
+				</div>
+        		<div class="mt-4">
+       
+					<div id ="forgotPassword" class="d-flex justify-content-center links">
+						Forgot your password?
+            <!-- <input id="clicked" name="clicked" value="clicked"></input> <button id ="signBtn" name="signUp" type="submit" > --->
+            <div id="passResetClick"><a href=<?php 
+            $resetURL = wp_lostpassword_url();
+            echo $resetURL;
+            ?> class="ml-2">Click here</a></div>
+					</div>
+        
 				</div>
 			</div>
 		</div>
@@ -146,7 +159,7 @@ if ( ! is_user_logged_in() ) { // Display WordPress login form:
 <div class="wrapper">
     <!-- Sidebar -->
     <nav id="sidebar" style="right:0">
-
+<div id = "blockSide" class = "blocker"></div>
 <div id="socialMediaCon">     
 
 <a href="https://www.facebook.com/RoamingRolls/?__xts__[0]=68.ARCWMIg9E_eD7KNw4cZJ6m47vrklgTUIC2fJCzZynHUw3q_2SEtChTgpnvwBf8bnaAT7luYAeO9Ybg269Tvl2eLwQO96aNtde92gv5Uo7LaPu1wzvsjIDl-MF1dtARnE_uEUsEbIG-tghNQvnCytSDi66k772nWSIjB1pq_mGSgIL3OVzPXDFBD9KH4-HfAIJEVyoeTGDmT69cLYVb4KgBMBnaa7xw3gjBOQ3VtlY78wWFDyc2BBS0VRIz97xx6pFEwTSkE2oDPNlKoA0ABEm4EfTasN0IWz1AQZa8EdxCCib3ugEoHgAwkZqsSrM-kpSb06GHNczcqSSdIIol_2v-DtB7Yn"><i id="facebookSideIcon" title="Facebook page" class="fab fa-facebook-square fa-2x topIcon"></i></a>
@@ -161,13 +174,16 @@ if ( ! is_user_logged_in() ) { // Display WordPress login form:
   <a href="https://www.roamingrolls.com/"><p class="nav-item">Home</p></a>
   <a href="https://www.roamingrolls.com/about-roamingrolls/"><p class="nav-item">About RR</a>
  <p class="nav-item">Account</p>
-  <a href="https://www.roamingrolls.com/Profiles/
+  <a href="
   <?php
+  if (is_user_logged_in())
+  {
  $current_user = wp_get_current_user();
-  echo $current_user->user_login;
+  echo 'https://www.roamingrolls.com/Profiles/'.$current_user->user_login;
+  }
   ?>
   "><p class="nav-sub-item">Profile</a>
-  <a href="https://www.roamingrolls.com/"><p class="nav-sub-item">Settings</a>
+  <a href="https://www.roamingrolls.com/account-settings"><p class="nav-sub-item">Settings</a>
   <a href="https://www.roamingrolls.com/?s=&post_type=gyms"><p class="nav-item">Find a Gym</a>
   <a
   <?php
@@ -186,8 +202,13 @@ function logGymShow() {
 }
 
 
-<?php 
-if ( ! is_user_logged_in() ) {
+<?php
+
+$currentUser = wp_get_current_user();
+$id = $currentUser->ID;
+$status = get_user_meta ($id, 'user_status',true);
+
+if ( ! is_user_logged_in() ||  $status !== 1  ) {
   echo " addgym2 = document.getElementById('addGymSlide');
                 addgym2.addEventListener('click', function() { showpopup()
                 logGymShow()
