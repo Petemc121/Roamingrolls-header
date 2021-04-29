@@ -66,7 +66,11 @@ wp_head();
 <div id = "signpop"  class="container h-100">
 <div id = "block" class = "blocker"><div Id="logAddGymMsg" class="alert alert-danger" role="alert">
   Please log in/verify your account to add a gym.
-</div></div>
+</div>
+<div class="alert alert-danger" id="logFail" role="alert">
+  Please log in first or sign up.
+</div>
+</div>
 
 		<div class="d-flex justify-content-center h-100">
 		<div class="user_card">
@@ -174,21 +178,28 @@ if ( ! is_user_logged_in() ) { // Display WordPress login form:
   <a href="https://www.roamingrolls.com/"><p class="nav-item">Home</p></a>
   <a href="https://www.roamingrolls.com/about-roamingrolls/"><p class="nav-item">About RR</a>
  <p class="nav-item">Account</p>
-  <a href="
+  <a 
   <?php
   if (is_user_logged_in())
   {
  $current_user = wp_get_current_user();
-  echo 'https://www.roamingrolls.com/Profiles/'.$current_user->user_login;
+  echo 'href= "https://www.roamingrolls.com/Profiles/'.$current_user->user_login.'"';
   }
   ?>
-  "><p class="nav-sub-item">Profile</a>
-  <a href="https://www.roamingrolls.com/account-settings"><p class="nav-sub-item">Settings</a>
-  <a href="https://www.roamingrolls.com/?s=&post_type=gyms"><p class="nav-item">Find a Gym</a>
+  ><p id="profileLink" class="nav-sub-item">Profile</a>
+  <a 
+  <?php
+    if (is_user_logged_in())
+  {
+  echo 'href="https://www.roamingrolls.com/account-settings"';
+  }
+  ?>
+><p  id="settings" class="nav-sub-item">Settings</p></a>
+  <a  href="https://www.roamingrolls.com/?s=&post_type=gyms"><p class="nav-item">Find a Gym</a>
   <a
   <?php
    if ( ! is_user_logged_in() ){
-    echo "";} else {
+    echo "";} else  {
     echo "href ='https://www.roamingrolls.com/add%20your%20gym/'";}
     ?>><p id ="addGymSlide" class="nav-item">Add a Gym</p></a>
   <a href="https://www.roamingrolls.com/articles/"><p class="nav-item">Articles</a>
@@ -196,26 +207,69 @@ if ( ! is_user_logged_in() ) { // Display WordPress login form:
 
 <script>
 
-function logGymShow() { 
+const blockSide = document.getElementById("blockSide");
+
+
+addgym2 = document.getElementById('addGymSlide');
+profileLink = document.getElementById('profileLink');
+settings = document.getElementById('settings');
+ addGymMsg = document.getElementById('logAddGymMsg');
+ logFail = document.getElementById('logFail');
+activatedFail = document.getElementById('activatedFail');
+
+
+   function notLoggedIn(element, message) {
+    element.addEventListener('click', function() {
+                showpopup();
+                logGymShow(message);
+                 setTimeout(function(){logGymFade(message)}, 1000)
+                setTimeout(function(){logGymNone(message)}, 2000)
+              }); 
+            }
+
+            function notActivated(element, message) {
+    element.addEventListener('click', function() {
+                logGymShow(message);
+                 setTimeout(function(){logGymFade(message)}, 1000)
+                setTimeout(function(){logGymNone(message)}, 2000)
+              }); 
+            }
+
+   function logGymShow(element) { 
   
-  addGymMsg.style.display = "block";
+  element.style.display = "block";
+  element.style.opacity = "100%";
+
 }
 
+function logGymNone(element) {
+  element.style.display = "none";
 
+}
+
+function logGymFade(element) { 
+  
+  element.style.opacity = "0%";
+  
+
+}
 <?php
 
 $currentUser = wp_get_current_user();
 $id = $currentUser->ID;
 $status = get_user_meta ($id, 'user_status',true);
 
-if ( ! is_user_logged_in() ||  $status !== 1  ) {
-  echo " addgym2 = document.getElementById('addGymSlide');
-                addgym2.addEventListener('click', function() { showpopup()
-                logGymShow()
-                setTimeout(function(){fade(addGymMsg)}, 1000);})";
+if ( ! is_user_logged_in()) {
+echo "notLoggedIn(addgym2, addGymMsg); ";
+  echo " notLoggedIn(profileLink, logFail); ";
+  echo " notLoggedIn(settings, logFail); ";
+} else if ( $status !== 1  ) {
+echo "notActivated(addgym2, activatedFail); ";
+  
 }
 
 ?>
+
 
 
   </script>
